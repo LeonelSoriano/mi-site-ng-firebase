@@ -4,25 +4,23 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Msg } from '../../config/msg';
 
+import {LoginService} from '../../auth/loginService';
+
 declare var $: any;
 
-@Component({
+@Component({    
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private _afAuth: AngularFireAuth,
+    private _email: string;
+    private _password : string;
+
+    constructor(private _loginService : LoginService,
         private _elRef:ElementRef) {
-       
-        this._afAuth.auth.signInWithEmailAndPassword("leonelsoriano3@gmail.com","123456")
-        .then(function(response){
-            console.log(response);
-        })
-        .catch(function(error){
-            console.log(error);
-        });
     }
 
   ngOnInit() {
@@ -33,12 +31,18 @@ export class LoginComponent implements OnInit {
     */
     onLogin(even): void{
 
+
         if($('#form-login').form('is valid')){
             this._elRef.nativeElement.querySelector('#msg-login').style.display = "none";
+
+            $("#loader-login").addClass("active");
+            this._loginService.doLogin(this._email, this._password)
+                .then(function(res){console.log(res);$("#loader-login").removeClass("active");})
+                .catch(function(e){console.log(e);$("#loader-login").removeClass("active");});
+ 
         }else{
             this._elRef.nativeElement.querySelector('#msg-login').style.display = "block";
         }
-        console.log("Logeando");
     }
 
     ngAfterViewInit(){
@@ -81,5 +85,25 @@ export class LoginComponent implements OnInit {
     }//end ngAfterViewInit
 
 
+    //getter setter
+    public get email() : string {
+        return this._email;
+    }
+
+    
+    public set email(email : string) {
+        this._email = email;
+    }
+    
+
+    public get password() : string {
+        return this._password;
+    }
+
+    public set password(password : string) {
+        this._password = password;
+    }
+    
+    
 
 }
