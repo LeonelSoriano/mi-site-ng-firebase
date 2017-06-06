@@ -1,0 +1,52 @@
+<div class="ui one column  center aligned page grid">
+  <div class="two wide column"></div>  
+
+   <div class="eight wide column">
+   
+   <div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui  header">
+      <div class="content">
+        Logeate
+      </div>
+    </h2>
+
+
+<form  id="form-login" novalidate>
+
+    <div  class="ui large form">
+      <div class="ui stacked secondary  segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input  type="text" name="email" placeholder="E-mail address"  />
+          </div>
+        </div>
+
+
+
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input  type="password" name="password"  >
+          </div>
+        </div>
+        <div class="ui fluid large teal submit button"  (click)="onLogin($event)"  >Login</div>
+       
+      </div>
+
+
+       
+
+    </div>
+<div  class="ui error message" id="msg-login" ></div>
+</form>
+
+
+
+  </div>
+</div>
+       
+   </div>
+  <div class="two wide column"></div>
+</div>
