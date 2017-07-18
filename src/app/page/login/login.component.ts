@@ -4,6 +4,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Msg } from '../../config/msg';
 
+import {  Router } from '@angular/router';
+
+
 import {LoginService} from '../../auth/loginService';
 
 declare var $: any;
@@ -20,7 +23,7 @@ export class LoginComponent implements OnInit {
     private _password : string;
 
     constructor(private _loginService : LoginService,
-        private _elRef:ElementRef) {
+        private _elRef:ElementRef, private _router: Router) {
     }
 
   ngOnInit() {
@@ -30,14 +33,19 @@ export class LoginComponent implements OnInit {
     * metodo para logear
     */
     onLogin(even): void{
-
+	
+	let self : LoginComponent = this;
 
         if($('#form-login').form('is valid')){
             this._elRef.nativeElement.querySelector('#msg-login').style.display = "none";
 
             $("#loader-login").addClass("active");
             this._loginService.doLogin(this._email, this._password)
-                .then(function(res){console.log(res);$("#loader-login").removeClass("active");})
+                .then(function(res){
+			console.log(res);$("#loader-login").removeClass("active");
+
+			self._router.navigate(['dash']);			
+		})
                 .catch(function(e){console.log(e);$("#loader-login").removeClass("active");});
  
         }else{

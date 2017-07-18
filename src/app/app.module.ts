@@ -12,12 +12,15 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './page/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './component/loader/loader.component';
+import { DashboardComponent } from './page/dashboard/dashboard.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LoaderComponent
+    LoaderComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
